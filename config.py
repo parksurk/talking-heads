@@ -7,7 +7,7 @@ GENERATED_DIR = r'generated_img'
 
 # Dataset parameters
 FEATURES_DPI = 100
-K = 8
+K = 32
 
 # Training hyperparameters
 IMAGE_SIZE = 224
