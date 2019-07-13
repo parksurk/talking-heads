@@ -1,9 +1,9 @@
 # VGG_FACE = r'/home/<user>/Documents/NeuralNetworkModels/vgg_face_dag.pth'
 # VGG_FACE = r'/home/<user>/models/vgg_face_dag.pth'
 VGG_FACE = r'/home/antonio/dlc3/models/vgg_face_dag.pth'
-LOG_DIR = r'logs'
-MODELS_DIR = r'models'
-GENERATED_DIR = r'generated_img'
+LOG_DIR = r'/ssd256g/k32s56087/logs'
+MODELS_DIR = r'/ssd256g/k32s56087/models'
+GENERATED_DIR = r'/ssd256g/k32s56087/generated_img'
 
 # Dataset parameters
 FEATURES_DPI = 100
