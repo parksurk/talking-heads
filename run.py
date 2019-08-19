@@ -151,7 +151,8 @@ def meta_train(device, dataset_path, continue_id):
         save_model(G, device, run_start)
         save_model(D, device, run_start)
         epoch_end = datetime.now()
-        logging.info(f'Epoch {epoch+1} finished in {epoch_end - epoch_start}. '
+        if len(batch_durations) != 0:
+            logging.info(f'Epoch {epoch+1} finished in {epoch_end - epoch_start}. '
                      f'Average batch time: {sum(batch_durations, timedelta(0)) / len(batch_durations)}')
 
 
