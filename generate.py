@@ -233,8 +233,8 @@ def main():
     dataset_parser.add_argument("--overwrite", action="store_true",
                                 help="Add this flag to overwrite already pre-processed files. The default functionality"
                                      "is to ignore videos that have already been pre-processed.")
-    dataset_parser.add_argument("--rf", action="store_true",
-                                help="generate random frame from the dataset to process. false:no, true:yes")
+    dataset_parser.add_argument("--rf", type=int, default=1,
+                                help="generate random frame from the dataset to process. 0:no, 1:yes")
     # ARGUMENTS: META_TRAINING  ----------------------------------------------------------------------------------------
     train_parser = subparsers.add_parser("meta-train", help="Starts the meta-training process.")
     train_parser.add_argument("--dataset", type=str, required=True,

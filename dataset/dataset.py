@@ -20,7 +20,7 @@ import config
 
 # region DATASET PREPARATION
 
-def preprocess_dataset(source, output, device='cpu', size=0, overwrite=False, rf=True):
+def preprocess_dataset(source, output, device='cpu', size=0, overwrite=False, rf=1):
     """
     Starts the pre-processing of the VoxCeleb dataset used for the Talking Heads models. This process has the following
     steps:
@@ -116,7 +116,7 @@ def process_video_folder(video, rf):
     try:
         assert contains_only_videos(files)
         frames = np.concatenate([extract_frames(os.path.join(folder, f)) for f in files])
-        if rf == True :
+        if rf == 1 :
             save_video(
                 frames=select_random_frames(frames),
                 video_id=os.path.basename(os.path.normpath(folder)),
