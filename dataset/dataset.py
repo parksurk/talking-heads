@@ -20,7 +20,7 @@ import config
 
 # region DATASET PREPARATION
 
-def preprocess_dataset(source, output, device='cpu', size=0, overwrite=False):
+def preprocess_dataset(source, output, device='cpu', size=0, overwrite=False, rf=True):
     """
     Starts the pre-processing of the VoxCeleb dataset used for the Talking Heads models. This process has the following
     steps:
@@ -59,7 +59,7 @@ def preprocess_dataset(source, output, device='cpu', size=0, overwrite=False):
     init_pool(fa, output)
     counter = 1
     for v in video_list:
-        process_video_folder(v)
+        process_video_folder(v, rf)
         logging.info(f'{counter}/{len(video_list)}')
         counter += 1
 
@@ -105,7 +105,7 @@ def init_pool(face_alignment, output):
     _OUT_DIR = output
 
 
-def process_video_folder(video):
+def process_video_folder(video, rf):
     """
     Extracts all frames from a video, selects K+1 random frames, and saves them along with their landmarks.
     :param video: 2-Tuple containing (1) the path to the folder where the video segments are located and (2) the file
@@ -116,13 +116,20 @@ def process_video_folder(video):
     try:
         assert contains_only_videos(files)
         frames = np.concatenate([extract_frames(os.path.join(folder, f)) for f in files])
-
-        save_video(
-            frames=select_random_frames(frames),
-            video_id=os.path.basename(os.path.normpath(folder)),
-            path=_OUT_DIR,
-            face_alignment=_FA
-        )
+        if rf == True :
+            save_video(
+                frames=select_random_frames(frames),
+                video_id=os.path.basename(os.path.normpath(folder)),
+                path=_OUT_DIR,
+                face_alignment=_FA
+            )
+        else:
+            save_video(
+                frames=frames,
+                video_id=os.path.basename(os.path.normpath(folder)),
+                path=_OUT_DIR,
+                face_alignment=_FA
+            )
     except Exception as e:
         logging.error(f'Video {os.path.basename(os.path.normpath(folder))} could not be processed:\n{e}')
 
