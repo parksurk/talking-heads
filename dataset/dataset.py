@@ -314,7 +314,7 @@ def plot_landmarks(frame, landmarks):
 class VoxCelebDatasetForFewShotInference(Dataset):
     """ Dataset object used to access the pre-processed VoxCelebDataset for Few Shot Inference """
 
-    def __init__(self, root, extension='.png', shuffle=False, transform=None, shuffle_frames=False):
+    def __init__(self, device, root, extension='.png', shuffle=False, transform=None, shuffle_frames=False):
         """
         Instantiates the Dataset.
 
@@ -324,6 +324,7 @@ class VoxCelebDatasetForFewShotInference(Dataset):
         :param transform: Transformations to be done to all frames of the video files.
         :param shuffle_frames: If True, each time a video is accessed, its frames will be shuffled.
         """
+        self.device = device
         self.root = root
         self.transform = transform
 
@@ -347,7 +348,7 @@ class VoxCelebDatasetForFewShotInference(Dataset):
     def __getitem__(self, idx):
         real_idx = self.indexes[idx]
         path = self.files[real_idx]
-        fa = FaceAlignment(LandmarksType._2D, device=device)
+        fa = FaceAlignment(LandmarksType._2D, device=self.device)
         x_temp = cv2.cvtColor(path, cv2.COLOR_BGR2RGB)
         y_temp = fa.get_landmarks(x)[0]
         out = []
