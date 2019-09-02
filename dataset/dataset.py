@@ -311,4 +311,53 @@ def plot_landmarks(frame, landmarks):
     plt.close(fig)
     return data
 
+class VoxCelebDatasetForFewShotInference(Dataset):
+    """ Dataset object used to access the pre-processed VoxCelebDataset for Few Shot Inference """
+
+    def __init__(self, root, extension='.png', shuffle=False, transform=None, shuffle_frames=False):
+        """
+        Instantiates the Dataset.
+
+        :param root: Path to the folder where the pre-processed dataset is stored.
+        :param extension: File extension of the pre-processed video files.
+        :param shuffle: If True, the video files will be shuffled.
+        :param transform: Transformations to be done to all frames of the video files.
+        :param shuffle_frames: If True, each time a video is accessed, its frames will be shuffled.
+        """
+        self.root = root
+        self.transform = transform
+
+        self.files = [
+            os.path.join(path, filename)
+            for path, dirs, files in os.walk(root)
+            for filename in files
+            if filename.endswith(extension)
+        ]
+        self.length = len(self.files)
+        self.indexes = [idx for idx in range(self.length)]
+
+        if shuffle:
+            random.shuffle(self.indexes)
+
+        self.shuffle_frames = shuffle_frames
+
+    def __len__(self):
+        return self.length
+
+    def __getitem__(self, idx):
+        real_idx = self.indexes[idx]
+        path = self.files[real_idx]
+        fa = FaceAlignment(LandmarksType._2D, device=device)
+        x_temp = cv2.cvtColor(path, cv2.COLOR_BGR2RGB)
+        y_temp = fa.get_landmarks(x)[0]
+        out = []
+        x = PIL.Image.fromarray(x_temp, 'RGB')
+        y = plot_landmarks(x_temp, y_temp)
+        if self.transform:
+            x = self.transform(x)
+            y = self.transform(y)
+        out.append({'frame': x, 'landmarks': y})
+
+        return real_idx, out
+
 # endregion
