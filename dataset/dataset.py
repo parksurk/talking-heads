@@ -348,6 +348,7 @@ class VoxCelebDatasetForFewShotInference(Dataset):
     def __getitem__(self, idx):
         real_idx = self.indexes[idx]
         path = self.files[real_idx]
+        print("image file path=", path)
         fa = FaceAlignment(LandmarksType._2D, device=self.device)
         x_temp = cv2.cvtColor(path, cv2.COLOR_BGR2RGB)
         y_temp = fa.get_landmarks(x)[0]
