@@ -1,1 +1,1 @@
-from .dataset import preprocess_dataset, VoxCelebDataset
+from .dataset import preprocess_dataset, VoxCelebDataset, VoxCelebDatasetForFewShotInference
