@@ -1,9 +1,14 @@
 # VGG_FACE = r'/home/<user>/Documents/NeuralNetworkModels/vgg_face_dag.pth'
 # VGG_FACE = r'/home/<user>/models/vgg_face_dag.pth'
-VGG_FACE = r'/home/antonio/dlc3/models/vgg_face_dag.pth'
-LOG_DIR = r'/ssd256g/k32s56087/logs'
-MODELS_DIR = r'/ssd256g/k32s56087/models'
-GENERATED_DIR = r'/ssd256g/k32s56087/generated_img'
+# VGG_FACE = r'/home/antonio/dlc3/models/vgg_face_dag.pth'
+# LOG_DIR = r'/ssd256g/k32s56087/logs'
+# MODELS_DIR = r'/ssd256g/k32s56087/models'
+# GENERATED_DIR = r'/ssd256g/k32s56087/generated_img'
+
+VGG_FACE = r'/home/ubuntu/vgg_models/vgg_face_dag.pth'
+LOG_DIR = r'/home/ubuntu/k32s10000/logs'
+MODELS_DIR = r'/home/ubuntu/k32s10000/models'
+GENERATED_DIR = r'/home/ubuntu/k32s10000/generated_img'
 
 # Dataset parameters
 FEATURES_DPI = 100
